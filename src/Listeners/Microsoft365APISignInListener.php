@@ -3,10 +3,9 @@
 namespace App\Listeners;
 
 use App\Models\User;
-use Dcblogdev\MsGraph\Models\MsGraphToken;
-use Dcblogdev\MsGraph\Models\MsGraphTokenAPI;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Auth;
+use Ylplabs\LaravelMsGraphApi\Models\MsGraphTokenAPI;
 
 class Microsoft365APISignInListener
 {

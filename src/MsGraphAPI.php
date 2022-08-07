@@ -3,7 +3,7 @@
 namespace Ylplabs\LaravelMsGraphApi;
 
 /**
- * msgraph api documentation can be found at https://developer.msgraph.com/reference
+ * msgraphapi api documentation can be found at https://developer.msgraphapi.com/reference
  **/
 
 use Exception;
@@ -43,13 +43,13 @@ class MsGraphAPI
 
         //set up the provides loaded values from the config
         $provider = new GenericProvider([
-            'clientId' => config('msgraph.clientId'),
-            'clientSecret' => config('msgraph.clientSecret'),
-            'redirectUri' => config('msgraph.redirectUri'),
-            'urlAuthorize' => config('msgraph.urlAuthorize'),
-            'urlAccessToken' => config('msgraph.urlAccessToken'),
-            'urlResourceOwnerDetails' => config('msgraph.urlResourceOwnerDetails'),
-            'scopes' => config('msgraph.scopes')
+            'clientId' => config('msgraphapi.clientId'),
+            'clientSecret' => config('msgraphapi.clientSecret'),
+            'redirectUri' => config('msgraphapi.redirectUri'),
+            'urlAuthorize' => config('msgraphapi.urlAuthorize'),
+            'urlAccessToken' => config('msgraphapi.urlAccessToken'),
+            'urlResourceOwnerDetails' => config('msgraphapi.urlResourceOwnerDetails'),
+            'scopes' => config('msgraphapi.scopes')
         ]);
 
         //when no code param redirect to Microsoft
@@ -84,7 +84,7 @@ class MsGraphAPI
                 $t->email = $me['mail'];
                 $t->save();
 
-                return redirect(config('msgraph.msgraphLandingUri'));
+                return redirect(config('msgraphapi.msgraphapiLandingUri'));
 
             } catch (IdentityProviderException $e) {
                 die('error:' . $e->getMessage());
@@ -142,7 +142,7 @@ class MsGraphAPI
                 return null;
             }
 
-            return redirect(config('msgraph.redirectUri'));
+            return redirect(config('msgraphapi.redirectUri'));
         }
 
         // Check if token is expired
@@ -153,13 +153,13 @@ class MsGraphAPI
 
             // Initialize the OAuth client
             $oauthClient = new GenericProvider([
-                'clientId' => config('msgraph.clientId'),
-                'clientSecret' => config('msgraph.clientSecret'),
-                'redirectUri' => config('msgraph.redirectUri'),
-                'urlAuthorize' => config('msgraph.urlAuthorize'),
-                'urlAccessToken' => config('msgraph.urlAccessToken'),
-                'urlResourceOwnerDetails' => config('msgraph.urlResourceOwnerDetails'),
-                'scopes' => config('msgraph.scopes')
+                'clientId' => config('msgraphapi.clientId'),
+                'clientSecret' => config('msgraphapi.clientSecret'),
+                'redirectUri' => config('msgraphapi.redirectUri'),
+                'urlAuthorize' => config('msgraphapi.urlAuthorize'),
+                'urlAccessToken' => config('msgraphapi.urlAccessToken'),
+                'urlResourceOwnerDetails' => config('msgraphapi.urlResourceOwnerDetails'),
+                'scopes' => config('msgraphapi.scopes')
             ]);
 
             $newToken = $oauthClient->getAccessToken('refresh_token', ['refresh_token' => $token->refresh_token]);
@@ -244,7 +244,7 @@ class MsGraphAPI
             $mainHeaders = [
                 'Authorization' => 'Bearer ' . $this->getAccessToken($id),
                 'content-type' => 'application/json',
-                'Prefer' => config('msgraph.preferTimezone')
+                'Prefer' => config('msgraphapi.preferTimezone')
             ];
 
             if (is_array($headers)) {

@@ -3,6 +3,7 @@
 namespace Ylplabs\LaravelMsGraphApi\Resources;
 
 use Exception;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Ylplabs\LaravelMsGraphApi\Facades\MsGraphAPI;
 
 class Emails extends MsGraphAPI
@@ -17,6 +18,7 @@ class Emails extends MsGraphAPI
     private $cc;
     private $bcc;
     private $attachments;
+    private $inlineAttachments;
 
     public function id($id)
     {
@@ -63,6 +65,15 @@ class Emails extends MsGraphAPI
     public function attachments(array $attachments)
     {
         $this->attachments = $attachments;
+        return $this;
+    }
+
+    public function addEmbeddedImage($imagePath, $cid)
+    {
+        if (!file_exists($imagePath)) {
+            throw new FileNotFoundException($imagePath);
+        }
+        $this->inlineAttachments[] = array("imagePath" => $imagePath, "contentId" => $cid);
         return $this;
     }
 
@@ -212,6 +223,7 @@ class Emails extends MsGraphAPI
         $cc = $this->cc;
         $bcc = $this->bcc;
         $attachments = $this->attachments;
+        $inlineAttachments = $this->inlineAttachments;
 
         $toArray = [];
         if ($to != null) {
@@ -242,6 +254,23 @@ class Emails extends MsGraphAPI
                 $attachmentarray[] = [
                     '@odata.type' => '#microsoft.graph.fileAttachment',
                     'name' => $path['basename'],
+                    'contentType' => mime_content_type($file),
+                    'contentBytes' => base64_encode(file_get_contents($file))
+                ];
+            }
+        }
+
+        if ($inlineAttachments != null) {
+            foreach ($inlineAttachments as $fileArray) {
+                $file = $fileArray["imagePath"];
+                $contentId = $fileArray["contentId"];
+                $path = pathinfo($file);
+
+                $attachmentarray[] = [
+                    '@odata.type' => '#microsoft.graph.fileAttachment',
+                    'name' => $path['basename'],
+                    'contentId' => $contentId,
+                    'isInline' => true,
                     'contentType' => mime_content_type($file),
                     'contentBytes' => base64_encode(file_get_contents($file))
                 ];

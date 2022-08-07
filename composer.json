@@ -9,16 +9,26 @@
         "ext-json": "*"
     },
     "license": "propietary",
-    "autoload": {
-        "psr-4": {
-            "Ylplabs\\LaravelMsGraphApi\\": "src/"
-        }
-    },
     "authors": [
         {
             "name": "Yosmel Lopez Pimentel",
             "email": "yosmellopez@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Ylplabs\\LaravelMsGraphApi\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ylplabs\\LaravelMsGraphApi\\MsGraphServiceProvider"
+            ],
+            "aliases": {
+                "MsGraphAPI": "Ylplabs\\LaravelMsGraphApi\\Facades\\MsGraph"
+            }
+        }
+    },
     "minimum-stability": "dev"
 }

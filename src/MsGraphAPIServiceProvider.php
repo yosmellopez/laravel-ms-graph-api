@@ -20,7 +20,7 @@ class MsGraphAPIServiceProvider extends ServiceProvider
 
             // Publishing the configuration file.
             $this->publishes([
-                __DIR__ . '/../config/msgraph.php' => config_path('msgraph.php'),
+                __DIR__ . '/../config/msgraphapi.php' => config_path('msgraphapi.php'),
             ], 'config');
 
             $this->publishes([
@@ -30,7 +30,7 @@ class MsGraphAPIServiceProvider extends ServiceProvider
             $timestamp = date('Y_m_d_His', time());
 
             $this->publishes([
-                __DIR__ . '/database/migrations/create_ms_graph_tokens_table.php' => $this->app->databasePath() . "/migrations/{$timestamp}_create_ms_graph_tokens_table.php",
+                __DIR__ . '/database/migrations/create_ms_graph_api_tokens_table.php' => $this->app->databasePath() . "/migrations/{$timestamp}_create_ms_graph_api_tokens_table.php",
             ], 'migrations');
         }
 
@@ -60,6 +60,6 @@ class MsGraphAPIServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['msgraph'];
+        return ['msgraphapi'];
     }
 }
