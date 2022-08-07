@@ -23,7 +23,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Ylplabs\\LaravelMsGraphApi\\MsGraphServiceProvider"
+                "Ylplabs\\LaravelMsGraphApi\\MsGraphAPIServiceProvider"
             ],
             "aliases": {
                 "MsGraphAPI": "Ylplabs\\LaravelMsGraphApi\\Facades\\MsGraphAPI"
