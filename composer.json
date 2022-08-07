@@ -8,7 +8,7 @@
         "guzzlehttp/guzzle": "6.x|7.x",
         "ext-json": "*"
     },
-    "license": "propietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Yosmel Lopez Pimentel",
