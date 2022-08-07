@@ -56,4 +56,9 @@ return [
     The default timezone is set to Europe/London this option allows you to set your prefered timetime
     */
     'preferTimezone' => env('MSGRAPHAPI_PREFER_TIMEZONE', 'outlook.timezone="Europe/London"'),
+
+    /*
+    The default timezone is set to Europe/London this option allows you to set your prefered timetime
+    */
+    'defaultUserId' => env('MSGRAPHAPI_DEFAULT_USER_ID', '0'),
 ];

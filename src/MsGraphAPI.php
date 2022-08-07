@@ -79,9 +79,14 @@ class MsGraphAPI
                 //fire event
                 event(new Microsoft365APISignInEvent($event));
 
+                if ($id == null) {
+                    $id = config('msgraphapi.defaultUserId');
+                }
+
                 //find record and add email - not required but useful none the less
                 $t = MsGraphTokenAPI::findOrFail($result->id);
-                $t->email = $me['mail'];
+                $t->email = isset($me['mail']) ? $me['mail'] : $me['userPrincipalName'];
+                $t->user_id = $id;
                 $t->save();
 
                 return redirect(config('msgraphapi.msgraphapiLandingUri'));
