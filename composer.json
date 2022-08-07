@@ -29,6 +29,5 @@
                 "MsGraphAPI": "Ylplabs\\LaravelMsGraphApi\\Facades\\MsGraphAPI"
             }
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
