@@ -246,6 +246,10 @@ class MsGraphAPI
         try {
             $client = new Client;
 
+            if ($id == null) {
+                $id = config('msgraphapi.defaultUserId');
+            }
+
             $mainHeaders = [
                 'Authorization' => 'Bearer ' . $this->getAccessToken($id),
                 'content-type' => 'application/json',
@@ -267,6 +271,13 @@ class MsGraphAPI
                 return null;
             }
 
+            $statusCode = $response->getStatusCode();
+            if ($statusCode > 200 && $statusCode < 205) {
+                return json_decode("{}");
+            }
+            if ($response->getBody() == null) {
+                return json_decode("{}");
+            }
             return json_decode($response->getBody()->getContents(), true);
 
         } catch (ClientException $e) {
@@ -274,49 +285,5 @@ class MsGraphAPI
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-    }
-
-    /**
-     * return array containing previous and next page counts
-     * @param  $data array
-     * @param  $total array
-     * @param  $limit  integer
-     * @param  $skip integer
-     * @return array
-     */
-    public function getPagination(array $data, int $total, int $limit, int $skip)
-    {
-        $previous = 0;
-        $next = 0;
-
-        if (isset($data['@odata.nextLink'])) {
-            $parts = explode('skip=', $data['@odata.nextLink']);
-
-            if (isset($parts[1])) {
-                $previous = $parts[1] - $limit;
-                $next = $parts[1];
-            }
-
-            if ($previous < 0) {
-                $previous = 0;
-            }
-
-            if ($next == $total) {
-                $next = 0;
-            }
-        }
-
-        if ($total > $limit) {
-            $previous = $skip - $limit;
-        }
-
-        if ($previous < 0) {
-            $previous = 0;
-        }
-
-        return [
-            'previous' => $previous,
-            'next' => $next
-        ];
     }
 }
