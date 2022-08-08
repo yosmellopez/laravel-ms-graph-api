@@ -25,7 +25,6 @@ Contributions are accepted via Pull Requests on [Github][4].
 
 ## Pull Requests
 
-- **Document any change in behaviour** - Make sure the `readme.md` and any other relevant documentation are kept up-to-date.
 
 - **Consider our release cycle** - We try to follow [SemVer v2.0.0][5]. Randomly breaking public APIs is not an option.
 
@@ -33,7 +32,7 @@ Contributions are accepted via Pull Requests on [Github][4].
 
 ## Security
 
-If you discover any security related issues, please email dave@dcblog.dev email instead of using the issue tracker.
+If you discover any security related issues, please email yosmellopez@gmail.com email instead of using the issue tracker.
 
 ## License
 
